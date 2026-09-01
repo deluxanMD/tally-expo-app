@@ -50,4 +50,6 @@ jobs:
         run: npm ci
 
       - name: Build on EAS
-        run: eas build --platform all --profile production --non-interactive --no-wait
+        # iOS is skipped until an Apple Developer account is set up — switch back to
+        # `--platform all` once `eas credentials --platform ios` has been run locally.
+        run: eas build --platform android --profile production --non-interactive --no-wait
