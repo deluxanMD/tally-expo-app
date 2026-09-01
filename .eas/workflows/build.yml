@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  lint_and_format:
+    name: Lint & format check
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - name: Lint
+        run: npm run lint
+      - name: Prettier check
+        run: npm run prettier:check
+
+  build_ios:
+    name: Build iOS
+    needs: [lint_and_format]
+    type: build
+    params:
+      platform: ios
+      profile: production
+
+  build_android:
+    name: Build Android
+    needs: [lint_and_format]
+    type: build
+    params:
+      platform: android
+      profile: production
